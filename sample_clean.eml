@@ -1,0 +1,23 @@
+Delivered-To: jason@example.com
+Received: from mail.company-hr.com (mail.company-hr.com [198.51.100.22])
+	by mx.example.com; Mon, 14 Sep 2026 10:03:11 -0400
+Authentication-Results: mx.example.com;
+	spf=pass smtp.mailfrom=hr@company-hr.com;
+	dkim=pass header.d=company-hr.com;
+	dmarc=pass (p=REJECT) header.from=company-hr.com
+From: "Company HR" <hr@company-hr.com>
+Reply-To: hr@company-hr.com
+To: jason@example.com
+Subject: Your Q3 benefits enrollment summary
+Date: Mon, 14 Sep 2026 10:03:00 -0400
+Message-ID: <xyz789@company-hr.com>
+Content-Type: text/html; charset="UTF-8"
+
+<html>
+<body>
+<p>Hi Jason,</p>
+<p>Attached is a summary of your Q3 benefits enrollment. No action is needed at this time.</p>
+<p>If you have any questions, just reply to this email.</p>
+<p>Thanks,<br>HR Team</p>
+</body>
+</html>

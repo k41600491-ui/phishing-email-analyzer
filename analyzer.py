@@ -1,6 +1,11 @@
 import email
 
-with open("sample_phish.eml", "r", encoding="utf-8") as f:
+import sys
+if len (sys.argv) > 1:
+    filename = sys.argv[1]
+else:
+    filename = "sample_phish.eml"
+with open(filename, "r", encoding="utf-8") as f:
     msg = email.message_from_file(f)
 
     print("From:", msg["From"])

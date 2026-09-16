@@ -1,5 +1,9 @@
 import email
-
+import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
+URLSCAN_API_KEY = os.getenv("URLSCAN_API_KEY")
 import sys
 if len (sys.argv) > 1:
     filename = sys.argv[1]
@@ -58,6 +62,24 @@ found_words = [word for word in suspicious_words if word in body_lower]
 
 print("\n--- urgency keyword check ---")
 print("Suspicious words found:", found_words)
+print("\n--- Threat intel check (urlscan.io) ---")
+urlscan_hits = 0
+for url in urls:
+    headers = {"API-Key": URLSCAN_API_KEY,}
+    params = {"q" : f'page.url:"{url}"'}
+
+    try:
+        response = requests.get("https://urlscan.io/api/v1/search/", headers=headers, params=params, timeout=10)
+        data = response.json()
+        results = data.get("results", [])
+        if results:
+            print(f"URL has prior scan history: {url}")
+            print(f" Number of prior scan found: {len(results)}")
+            urlscan_hits += 1
+        else:
+            print(f"No prior scan history found for URL: {url}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error contacting urlscan.io: {e}")
 print("\n--- Risk score ---")
 score = 0
 if reply_domain and reply_domain != from_domain:

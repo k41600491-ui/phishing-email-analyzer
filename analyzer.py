@@ -53,4 +53,26 @@ found_words = [word for word in suspicious_words if word in body_lower]
 
 print("\n--- urgency keyword check ---")
 print("Suspicious words found:", found_words)
+print("\n--- Risk score ---")
+score = 0
+if reply_domain and reply_domain != from_domain:
+    score += 2
+if spf_fail:
+    score += 15
+if dkim_fail:
+    score += 15
+if dmarc_fail:
+    score += 15
+if urls:
+    score += 20
+score += len(found_words) * 5
 
+print("Total score:", score)
+
+if score >= 50:
+    verdict = "MALICIOUS"
+elif score >= 20:
+    verdict = "SUSPICIOUS"
+else:
+    verdict = "LIKELY SAFE"
+print("Verdict:", verdict)

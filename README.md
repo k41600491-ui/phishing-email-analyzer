@@ -34,13 +34,40 @@ These weights and thresholds are a starting hypothesis based on common phishing 
 
 ## Setup
 
-```bash
-git clone https://github.com/k41600491-ui/phishing-email-analyzer.git
-cd phishing-email-analyzer
-python -m venv venv
-venv\Scripts\Activate.ps1      # Windows PowerShell
-pip install -r requirements.txt
-```
+Clone the repo and install dependencies:
 
-Create a `.env` file in the project root with a free [urlscan.io](https://urlscan.io) API key:
-URLSCAN_API_KEY=your_key_here
+    git clone https://github.com/k41600491-ui/phishing-email-analyzer.git
+    cd phishing-email-analyzer
+    python -m venv venv
+    venv\Scripts\Activate.ps1
+    pip install -r requirements.txt
+
+Create a `.env` file in the project root containing a free urlscan.io API key, in this format:
+
+    URLSCAN_API_KEY=your_key_here
+
+## Usage
+
+    python analyzer.py sample_phish.eml
+
+Run it against any `.eml` file. Two test files are included:
+- `sample_phish.eml` — a crafted phishing email that triggers every detection signal
+- `sample_clean.eml` — a legitimate email that correctly scores as `LIKELY SAFE`, proving the tool doesn't just flag everything
+
+## Example output
+
+    --- Risk score ---
+    Total score: 92
+    Verdict: MALICIOUS
+
+## Known limitations & future work
+
+- **URL heuristic is naive** — currently any URL found in the body adds points; a more mature version would only flag URLs that are themselves suspicious (mismatched display text vs. actual link, newly-registered domains, etc.), since nearly all legitimate emails contain links too
+- **No attachment analysis** — doesn't yet hash or check email attachments against threat intel
+- **Single threat-intel source** — urlscan.io only; a production version would also check abuse.ch's URLhaus/ThreatFox for known-malicious indicators
+- **No live mailbox integration** — currently analyzes individual `.eml` files rather than watching a real inbox automatically; connecting to a mailbox via IMAP or the Microsoft Graph API is a natural next step
+- **Scoring weights are unvalidated** — a real deployment would tune these against a larger labeled dataset rather than hand-picked values
+
+## Built with
+
+Python 3.14 · `email` (standard library) · `re` (standard library) · `requests` · `python-dotenv` · urlscan.io API

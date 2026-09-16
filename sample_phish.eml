@@ -1,0 +1,27 @@
+Delivered-To: jason@example.com
+Received: from mail.secure-billing-update.com (mail.secure-billing-update.com [203.0.113.17])
+	by mx.example.com; Mon, 14 Sep 2026 09:12:44 -0400
+Authentication-Results: mx.example.com;
+	spf=fail smtp.mailfrom=billing@secure-billing-update.com;
+	dkim=fail header.d=secure-billing-update.com;
+	dmarc=fail (p=REJECT) header.from=paypal.com
+From: "PayPal Security Team" <billing@secure-billing-update.com>
+Reply-To: recovery-support@acct-verify-team.ru
+To: jason@example.com
+Subject: URGENT: Your account has been limited - action required within 24 hours
+Date: Mon, 14 Sep 2026 09:12:40 -0400
+Message-ID: <a1b2c3d4@secure-billing-update.com>
+Content-Type: text/html; charset="UTF-8"
+
+<html>
+<body>
+<p>Dear Valued Customer,</p>
+<p>We have detected unusual activity on your account. Your access has been <b>limited</b> 
+and will be permanently suspended within <b>24 hours</b> unless you verify your identity immediately.</p>
+<p>Click here to restore full access: 
+<a href="http://paypal-account-verify.secure-billing-update.com/login.php?id=8842">
+Verify My Account Now</a></p>
+<p>Failure to act will result in permanent account closure and forfeiture of funds.</p>
+<p>Thank you,<br>PayPal Security Team</p>
+</body>
+</html>

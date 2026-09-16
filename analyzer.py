@@ -39,4 +39,12 @@ with open("sample_phish.eml", "r", encoding="utf-8") as f:
             print("[!] One authentication check failed - worth a closer look")
     else:
             print("Authentication checks passed")
+import re
+
+body =msg.get_payload()
+
+print("\n--- URL extraction ---")
+urls = re.findall(r'href="(https?://[^"]+)"', body)
+for url in urls:
+    print("Found URL:", url)
         

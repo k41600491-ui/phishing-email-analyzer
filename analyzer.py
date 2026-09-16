@@ -20,4 +20,23 @@ with open("sample_phish.eml", "r", encoding="utf-8") as f:
        print ("[!] MISMATCH: Reply-To domain differs from From domain - classic spoofing sign") 
     else:
         print("Domains match, or no Reply-To set")
+    auth_results = msg["Authentication-Results"] or ""
+    print("\n-- Authentication check ---")
+    print("Raw header:", auth_results)
+    spf_fail = "spf=fail" in auth_results.lower()
+    dkim_fail = "dkim=fail" in auth_results.lower()
+    dmarc_fail = "dmarc=fail" in auth_results.lower()
+
+    fail_count = sum([spf_fail, dkim_fail, dmarc_fail])
+
+    print("SPF fail:", spf_fail)
+    print("DKIM fail:", dkim_fail)
+    print("DMARC fail:", dmarc_fail)
+
+    if fail_count >= 2:
+        print("[!] Multiple authentication checks failed - strong phishing indicator")
+    elif fail_count == 1:
+            print("[!] One authentication check failed - worth a closer look")
+    else:
+            print("Authentication checks passed")
         

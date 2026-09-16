@@ -47,4 +47,10 @@ print("\n--- URL extraction ---")
 urls = re.findall(r'href="(https?://[^"]+)"', body)
 for url in urls:
     print("Found URL:", url)
-        
+suspicious_words = ["urgent", "verify", "suspended", "immediately", "24 hours", "limited", "act now"]
+body_lower = body.lower()
+found_words = [word for word in suspicious_words if word in body_lower]
+
+print("\n--- urgency keyword check ---")
+print("Suspicious words found:", found_words)
+

@@ -1,3 +1,5 @@
+![Phishing Email Analyzer](phishing-analyzer-banner.png)
+
 # Phishing Email Analyzer
 
 A Python tool that automatically analyzes `.eml` email files for phishing indicators — email authentication failures, sender spoofing, suspicious URLs, and urgency-based social engineering — and produces a weighted risk score with a final verdict.
